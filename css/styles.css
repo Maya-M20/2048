@@ -79,3 +79,10 @@ button:hover {
     margin-top: 20px;
     color: #905787;
 }
+
+.cell {
+    background-color: #a16a8a;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+}
