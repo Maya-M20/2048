@@ -56,7 +56,7 @@ function getEmptyCells() {
     return emptyCells;
 }
 
-function addRandomSquare(){
+function addRandomTile(){
     let emptyCells = getEmptyCells();
 
     if (emptyCells.length === 0) {
@@ -67,7 +67,7 @@ function addRandomSquare(){
     let randomCell = emptyCells[randomIndex];
     let cellValue;
 
-    if (Math.random() < 0.5){
+    if (Math.random() < 0.7){
         cellValue = 2;
     }
     else {
@@ -79,11 +79,32 @@ function addRandomSquare(){
     renderBoard();
 }
 
+function shiftLeft(row){
+    let newRow = row.filter(item => item != 0);
+
+    for (let i = 0; i < newRow.length - 1; i++) {
+        if (newRow[i] === newRow[i + 1]) {
+            newRow[i] *= 2;
+            newRow.splice(i + 1, 1);
+            if (i > 0){
+                i--;
+            };
+            i--;
+        }
+    }
+
+     while (newRow.length < 4) {
+        newRow.push(0);
+    }
+
+    return newRow;
+}
+
 createBoard();
 
-let initialSquare = Math.floor(Math.random() * 3) + 1;
+let initialTile = Math.floor(Math.random() * 3);
 
-for (let i = 0; i < initialSquare; i++) {
-    addRandomSquare();
+for (let i = 0; i < initialTile + 1; i++) {
+    addRandomTile();
 }
 renderBoard();
