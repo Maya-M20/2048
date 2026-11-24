@@ -108,6 +108,10 @@ function shiftUp(col){
     return shiftLeft(col);
 }
 
+function shiftDown(col){
+    return shiftRight(col);
+}
+
 createBoard();
 
 let initialTile = Math.floor(Math.random() * 3);
