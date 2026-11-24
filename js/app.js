@@ -100,6 +100,10 @@ function shiftLeft(row){
     return newRow;
 }
 
+function shiftRight(row){
+    return shiftLeft(row.reverse()).reverse();
+}
+
 createBoard();
 
 let initialTile = Math.floor(Math.random() * 3);
@@ -108,3 +112,5 @@ for (let i = 0; i < initialTile + 1; i++) {
     addRandomTile();
 }
 renderBoard();
+
+console.log(shiftRight([2, 2, 4, 4]));
