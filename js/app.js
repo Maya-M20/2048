@@ -1,4 +1,8 @@
 const gameBoard = document.querySelector("#game-board");
+const shiftLeftButton = document.querySelector("#shift-left");
+const shiftRightButton = document.querySelector("#shift-right");
+const shiftUpButton = document.querySelector("#shift-up");
+const shiftDownButton = document.querySelector("#shift-down");
 
 let board = [
     [0, 0, 0, 0],
@@ -114,9 +118,75 @@ function shiftDown(col){
 
 createBoard();
 
-let initialTile = Math.floor(Math.random() * 3);
+shiftLeftButton.addEventListener('click', () => {
+    for (let row = 0; row < 4; row++){
+        board[row] = shiftLeft(board[row]);
+    }
+
+    addRandomTile();
+
+    renderBoard();
+
+    console.log(board);
+})
+
+shiftRightButton.addEventListener('click', () => {
+    for (let row = 0; row < 4; row++){
+        board[row] = shiftRight(board[row]);
+    }
+
+    addRandomTile();
+
+    renderBoard();
+
+    console.log(board);
+})
+
+shiftUpButton.addEventListener('click', () => {
+    let cols = board[0]?.length ?? 0;
+    board = Array.from({ length: cols }, (_, colIndex) =>
+        board.map((row) => row[colIndex])
+    );
+
+    for (let row = 0; row < 4; row++){
+        board[row] = shiftLeft(board[row]);
+    }
+
+    cols = board[0]?.length ?? 0;
+    board = Array.from({ length: cols }, (_, colIndex) =>
+        board.map((row) => row[colIndex])
+    );
+
+    addRandomTile();
+
+    renderBoard();
+})
+
+shiftDownButton.addEventListener('click', () => {
+    let cols = board[0]?.length ?? 0;
+    board = Array.from({ length: cols }, (_, colIndex) =>
+        board.map((row) => row[colIndex])
+    );
+
+    for (let row = 0; row < 4; row++){
+        board[row] = shiftRight(board[row]);
+    }
+
+    cols = board[0]?.length ?? 0;
+    board = Array.from({ length: cols }, (_, colIndex) =>
+        board.map((row) => row[colIndex])
+    );
+
+    addRandomTile();
+
+    renderBoard();
+})
+
+let initialTile = Math.floor(Math.random() * 2);
 
 for (let i = 0; i < initialTile + 1; i++) {
     addRandomTile();
 }
 renderBoard();
+
+console.log(board);
