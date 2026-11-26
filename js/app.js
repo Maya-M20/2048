@@ -4,6 +4,10 @@ const shiftRightButton = document.querySelector("#shift-right");
 const shiftUpButton = document.querySelector("#shift-up");
 const shiftDownButton = document.querySelector("#shift-down");
 const scoreElement = document.querySelector("p");
+const undoButton = document.querySelector("#undo");
+
+let copyBoard;
+let copyScore;
 
 let score = 0;
 let board = [
@@ -124,11 +128,14 @@ createBoard();
 
 shiftLeftButton.addEventListener('click', () => {
     let previousBoard = board.map(row => [...row]);
+    let previousScore = score;
     for (let row = 0; row < 4; row++){
         board[row] = shiftLeft(board[row]);
     }
 
     if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        copyBoard = previousBoard;
+        copyScore = previousScore;
         addRandomTile();
     }
 
@@ -136,17 +143,21 @@ shiftLeftButton.addEventListener('click', () => {
 
 shiftRightButton.addEventListener('click', () => {
     let previousBoard = board.map(row => [...row]);
+    let previousScore = score;
     for (let row = 0; row < 4; row++){
         board[row] = shiftRight(board[row]);
     }
 
     if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        copyBoard = previousBoard;
+        copyScore = previousScore;
         addRandomTile();
     }
 })
 
 shiftUpButton.addEventListener('click', () => {
     let previousBoard = board.map(row => [...row]);
+    let previousScore = score;
     let cols = board[0]?.length ?? 0;
     board = Array.from({ length: cols }, (_, colIndex) =>
         board.map((row) => row[colIndex])
@@ -162,12 +173,15 @@ shiftUpButton.addEventListener('click', () => {
     );
 
     if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        copyBoard = previousBoard;
+        copyScore = previousScore;
         addRandomTile();
     }
 })
 
 shiftDownButton.addEventListener('click', () => {
     let previousBoard = board.map(row => [...row]);
+    let previousScore = score;
     let cols = board[0]?.length ?? 0;
     board = Array.from({ length: cols }, (_, colIndex) =>
         board.map((row) => row[colIndex])
@@ -183,8 +197,17 @@ shiftDownButton.addEventListener('click', () => {
     );
 
     if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        copyBoard = previousBoard;
+        copyScore = previousScore;
         addRandomTile();
     }
+})
+
+undoButton.addEventListener('click', () => {
+    board = copyBoard;
+    score = copyScore;
+
+    renderBoard();
 })
 
 let initialTile = Math.floor(Math.random() * 2);
