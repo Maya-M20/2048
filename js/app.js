@@ -119,30 +119,30 @@ function shiftDown(col){
 createBoard();
 
 shiftLeftButton.addEventListener('click', () => {
+    let previousBoard = board.map(row => [...row]);
     for (let row = 0; row < 4; row++){
         board[row] = shiftLeft(board[row]);
     }
 
-    addRandomTile();
+    if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        addRandomTile();
+    }
 
-    renderBoard();
-
-    console.log(board);
 })
 
 shiftRightButton.addEventListener('click', () => {
+    let previousBoard = board.map(row => [...row]);
     for (let row = 0; row < 4; row++){
         board[row] = shiftRight(board[row]);
     }
 
-    addRandomTile();
-
-    renderBoard();
-
-    console.log(board);
+    if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        addRandomTile();
+    }
 })
 
 shiftUpButton.addEventListener('click', () => {
+    let previousBoard = board.map(row => [...row]);
     let cols = board[0]?.length ?? 0;
     board = Array.from({ length: cols }, (_, colIndex) =>
         board.map((row) => row[colIndex])
@@ -157,12 +157,13 @@ shiftUpButton.addEventListener('click', () => {
         board.map((row) => row[colIndex])
     );
 
-    addRandomTile();
-
-    renderBoard();
+    if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        addRandomTile();
+    }
 })
 
 shiftDownButton.addEventListener('click', () => {
+    let previousBoard = board.map(row => [...row]);
     let cols = board[0]?.length ?? 0;
     board = Array.from({ length: cols }, (_, colIndex) =>
         board.map((row) => row[colIndex])
@@ -177,9 +178,9 @@ shiftDownButton.addEventListener('click', () => {
         board.map((row) => row[colIndex])
     );
 
-    addRandomTile();
-
-    renderBoard();
+    if (JSON.stringify(previousBoard) !== JSON.stringify(board)){
+        addRandomTile();
+    }
 })
 
 let initialTile = Math.floor(Math.random() * 2);
@@ -188,5 +189,3 @@ for (let i = 0; i < initialTile + 1; i++) {
     addRandomTile();
 }
 renderBoard();
-
-console.log(board);
