@@ -3,7 +3,9 @@ const shiftLeftButton = document.querySelector("#shift-left");
 const shiftRightButton = document.querySelector("#shift-right");
 const shiftUpButton = document.querySelector("#shift-up");
 const shiftDownButton = document.querySelector("#shift-down");
+const scoreElement = document.querySelector("p");
 
+let score = 0;
 let board = [
     [0, 0, 0, 0],
     [0, 0, 0, 0],
@@ -46,6 +48,7 @@ function renderBoard() {
             index++;
         }
     }
+    scoreElement.textContent = `Score: ${score}`;
 }
 
 function getEmptyCells() {
@@ -89,6 +92,7 @@ function shiftLeft(row){
     for (let i = 0; i < newRow.length - 1; i++) {
         if (newRow[i] === newRow[i + 1]) {
             newRow[i] *= 2;
+            score += newRow[i];
             newRow.splice(i + 1, 1);
             if (i > 0){
                 i--;
@@ -188,4 +192,5 @@ let initialTile = Math.floor(Math.random() * 2);
 for (let i = 0; i < initialTile + 1; i++) {
     addRandomTile();
 }
+
 renderBoard();
